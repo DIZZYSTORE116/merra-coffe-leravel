@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Meera Coffee — Artisan Coffee &amp; Brews</title>
+  <meta name="description" content="Nikmati kopi artisan pilihan dan racikan minuman segar dari Meera Coffee. Pesan langsung dengan mudah dan cepat.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('assets/styles.css') }}">
+  <style>
+    /* Lokasi Google Maps (footer) */
+    .footer-location {
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .footer-location-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #8c8c8c;
+    }
+    .footer-location-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--mc-pure-white);
+      letter-spacing: -0.02em;
+      margin: 0.35rem 0 0.75rem;
+    }
+    .footer-location-address {
+      font-style: normal;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: #b8b8b8;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Tombol Instagram bergaya brand Instagram (hanya di blok "Ikuti Kami di Instagram") */
+    .footer-social {
+      --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    }
+    .footer-social .btn-ig {
+      background: var(--ig-gradient);
+      border: 1px solid transparent;
+      color: #ffffff;
+      padding: 0.6rem 1.4rem;
+      box-shadow: 0 6px 18px rgba(220, 39, 67, 0.28);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+    .footer-social .btn-ig svg {
+      width: 18px;
+      height: 18px;
+    }
+    .footer-social .btn-ig span {
+      font-size: 0.85rem;
+      text-transform: none;
+      letter-spacing: 0;
+      color: #ffffff;
+    }
+    .footer-social .btn-ig:hover {
+      background: var(--ig-gradient);
+      border-color: transparent;
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      box-shadow: 0 10px 24px rgba(220, 39, 67, 0.38);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Navigasi -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a aria-label="Meera Coffee Beranda" class="brand-logo" href="#">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZfnvPM9DEH76M1lpQmup1-hyheLau6ORiGJMQpf4iYSnYZf3rU9p8TTDeDiBpKEZgmeGUtNtaXgf_X3afsQD7brOoE1OTjRubYvuaSvUA_1Z2tZy03J-_u-d2LPFw1QAaw0fRJeyhanPC3FOVdtJ0Yke8ea5FZYtZDhOn9s1ghJVGgv68pe1I0Yd-LswBnWUE8arOYc-1s9q9RAHPediyIFNP2jaolm1DEiddKk_cBKSn9tB4aGhtmewlaHMt8ya6Cw" alt="Meera Coffee Logo" class="brand-img">
+        <div class="brand-info">
+          <span class="brand-title">Meera Coffee</span>
+        </div>
+      </a>
+      
+      <nav aria-label="Navigasi Utama">
+        <ul class="nav-menu">
+          <li>
+            <a class="nav-link" href="#katalog">
+              <span>Daftar Menu</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="https://www.instagram.com/meeracoffee24" target="_blank" rel="noopener noreferrer">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span>@@meeracoffee24</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button aria-label="Buka Keranjang Belanja" class="btn-cart">
+          <svg class="cart-icon-svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span>Pesanan</span>
+          <span class="cart-badge" id="header-cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Konten Utama -->
+  <main class="container">
+    <!-- Kontrol Filter Kategori -->
+    <div class="store-control">
+      <div aria-label="Filter Kategori Menu" class="category-scroll" role="tablist">
+        <button aria-selected="true" class="chip-btn active" data-category="all" role="tab">Semua Menu</button>
+        <button aria-selected="false" class="chip-btn" data-category="coffee" role="tab">Coffee</button>
+        <button aria-selected="false" class="chip-btn" data-category="non-coffee" role="tab">Non-Coffee</button>
+      </div>
+    </div>
+
+    <!-- Bagian Katalog Produk -->
+    <section aria-label="Katalog Minuman Meera Coffee" id="katalog">
+      <div id="empty-search-state">
+        <span class="empty-icon">☕</span>
+        <h4 style="font-family:var(--font-display); font-size:1.15rem; font-weight:700; color:var(--mc-jet-black);">Menu Tidak Ditemukan</h4>
+        <p style="font-size:0.875rem; color:var(--color-text-muted); margin-top:0.35rem;">Coba pilih kategori menu lainnya di atas.</p>
+      </div>
+
+      <div class="product-grid" id="product-grid-container">
+        <!-- Produk 1 -->
+        <article class="product-card" data-category="coffee">
+          <div>
+            <div class="product-thumb">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIYPD6nY-xFo3NveydG-Gsbo0CdCQbVxXKFpxFurcNk8xHZ4v_JMn_PzRFzk0NoOGBmdIpHW_-6JKSTfdoSHBhqP9eODU4VkGNTy3y4FVa1siVTdZnjGpeBeY7C_fc6Y6ouqua8op1x2oBrCUt7oAcntLoYYXKYC_sYGnwABVyGn25B6cWkUbjEqoP_6ZvnHCPGK6Ga3zfaLsN8jVNUiX5RAzEKVQDUgayZtcxfwuPQq-baNoGqb79BFc2RcbL_DerMQ" alt="Ice Americano" loading="lazy">
+            </div>
+            <div class="product-meta-top">
+              <span class="badge-tag badge-category">Coffee</span>
+            </div>
+            <h3 class="product-name">Ice Americano</h3>
+            <p class="product-desc">Espresso shot ganda dengan air dingin &amp; kristal es segar, bold dan menyegarkan dahaga.</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">Rp 8.000</span>
+            <button aria-label="Pilih Ice Americano" class="btn-add" onclick="addToCart('Ice Americano', 8000)">+ Pilih</button>
+          </div>
+        </article>
+
+        <!-- Produk 2 -->
+        <article class="product-card" data-category="coffee">
+          <div>
+            <div class="product-thumb">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzs1BbUw3RpT_cioJOi3Xdfpb5Ho85bnxg1W7Qi5mSXExhj7ZeI5vBeZe1fUmf_28O2otUXMxjjzV6ctQBXe5L7AolOMn_EjTWj9GhDF6MZen-6ja6ceY4CJTy3SGm29e3J5Bv2Kn762dBRHn24rklenm0MpkvMi4HuSA24ZtITZrgknVVCYIwyegDnz55tL5PVCPGJBbCLdwKRIDHU8LBwL7ofciLM6o4XiNjPzWNsHazKCxoQHXbMBNaDLU24kNbwQ" alt="Ice Cappuccino" loading="lazy">
+            </div>
+            <div class="product-meta-top">
+              <span class="badge-tag badge-category">Coffee</span>
+            </div>
+            <h3 class="product-name">Ice Cappuccino</h3>
+            <p class="product-desc">Espresso kaya rasa, steamed fresh milk creamy &amp; microfoam dingin dengan sensasi seimbang.</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">Rp 10.000</span>
+            <button aria-label="Pilih Ice Cappuccino" class="btn-add" onclick="addToCart('Ice Cappuccino', 10000)">+ Pilih</button>
+          </div>
+        </article>
+
+        <!-- Produk 3 -->
+        <article class="product-card" data-category="coffee">
+          <div>
+            <div class="product-thumb">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzJ413k6T2pXQa7Oeq6JpSIq8EHpGBcmWetm2f1Z4e94kgXBggIRECLb58zqxS2jh65Y-aJ_YM_Ax4ddgFH44Jpun1aQTqiEb0igbO470DBBC9GZPhnDuVVwffCg38IIMx8dH1MqpfD2jBDJZp5HgRA2ANzzP46Id8v4LpxdtKyxUDoVufE1KXcak1Qj1BeKPeg1vsxSdZmNaV7hKXZeEvV2pTgp2A3iOV13oJl727Ub54I2y89bniiIOjnP7hLc8h_Q" alt="Ice Salted Caramel" loading="lazy">
+            </div>
+            <div class="product-meta-top">
+              <span class="badge-tag badge-category">Coffee</span>
+            </div>
+            <h3 class="product-name">Ice Salted Caramel</h3>
+            <p class="product-desc">Espresso blend Meera, saus gurih manis salted caramel artisan &amp; susu segar berkualitas tinggi.</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">Rp 12.000</span>
+            <button aria-label="Pilih Ice Salted Caramel" class="btn-add" onclick="addToCart('Ice Salted Caramel', 12000)">+ Pilih</button>
+          </div>
+        </article>
+
+        <!-- Produk 4 -->
+        <article class="product-card" data-category="coffee">
+          <div>
+            <div class="product-thumb">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsLtevaNotPbW3Tx6S-oLIj2nZwS8N_XxmmHyJY7SO4PrJTcPdrYJB_TsR6mxhySF63ECitYaRV7rpgKbUZxL5Wiv3D3NNpkfGap_TbEixrkqV63WEDN-bxhB8z_vgxmNE82q1hVslhPcvpjfS_OhqAdisFsnLQZthFliVrX5v6xFzP9H_2tyvzdtOLSp1wDRwi07pB1c8YUC_Th4D9NlftfWodR9dAUFRdgtTNE8oCGUhdZb4UCxoKXjG5Fi98J-CpQ" alt="Ice Coffee Gula Aren" loading="lazy">
+            </div>
+            <div class="product-meta-top">
+              <span class="badge-tag badge-category">Coffee</span>
+            </div>
+            <h3 class="product-name">Ice Coffee Gula Aren</h3>
+            <p class="product-desc">Signature blend Meera dengan nira aren organik Nusantara &amp; susu segar yang creamy legit.</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">Rp 10.000</span>
+            <button aria-label="Pilih Ice Coffee Gula Aren" class="btn-add" onclick="addToCart('Ice Coffee Gula Aren', 10000)">+ Pilih</button>
+          </div>
+        </article>
+
+        <!-- Produk 5 -->
+        <article class="product-card" data-category="coffee">
+          <div>
+            <div class="product-thumb">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBraaMALRMZmHYZGtE0bH4Sn72l51guHdE8FoEnZYwQsACEslTeZCunA8n59icc0ULyrVms1YHjm5fU9FhR6m16kFLu_U0dzbe7ENbYfzFNeDodslYW4YQtmlQ3ZTioqsHwv29IQwIP5iJkaft_eN0mKSaLYoSsKB6CJgIhR-10VdcAbKnVMPdme9QjibuXA0y6sJq6eynTJhtugJJ8cH3X-fKKRBoSmgwMp58rwXRf-jMMx3x00Qv1jcdkVkl9KO-NPA" alt="Ice Hazelnut Latte" loading="lazy">
+            </div>
+            <div class="product-meta-top">
+              <span class="badge-tag badge-category">Coffee</span>
+            </div>
+            <h3 class="product-name">Ice Hazelnut Latte</h3>
+            <p class="product-desc">Espresso lembut dipadu ekstrak vanilla alami Madagaskar &amp; susu segar beraroma harum.</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">Rp 12.000</span>
+            <button aria-label="Pilih Ice Hazelnut Latte" class="btn-add" onclick="addToCart('Ice Hazelnut Latte', 12000)">+ Pilih</button>
+          </div>
+        </article>
+
+        <!-- Produk 6 -->
+        <article class="product-card" data-category="coffee">
+          <div>
+            <div class="product-thumb">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYgExCJ4-wTOYcsc7Q8KUOKWIAwmLgOQ6OPNpNMobpGR-w410Gl4MHd1hXSJqp7Cc0x-sRSasav0xloEbVGkqWWf_9TRAtw2Zrw1v615BWwiobtvzeLeQ3JSsVu7puuyRnlSX5Cd0FpDFLiUTga3_RG6E9DaoZCdG8COudgoy3brfAR5s0zvxemRtxMId1PgEg_53nRT7SSd3AFWQZdoXsboosY8YhWbfAGEfELVRvga8pDua6Wcv-pcOyToXGzV_yCw" alt="Ice Milk Coffee" loading="lazy">
+            </div>
+            <div class="product-meta-top">
+              <span class="badge-tag badge-category">Coffee</span>
+            </div>
+            <h3 class="product-name">Ice Milk Coffee</h3>
+            <p class="product-desc">Kopi susu klasik Meera yang creamy, seimbang, dan menyegarkan sepanjang hari.</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">Rp 10.000</span>
+            <button aria-label="Pilih Ice Milk Coffee" class="btn-add" onclick="addToCart('Ice Milk Coffee', 10000)">+ Pilih</button>
+          </div>
+        </article>
+
+        <!-- Produk Non-Coffee 1 -->
+        <article class="product-card" data-category="non-coffee">
+          <div>
+            <div class="product-thumb">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiNHaOg-sw-GeB2qXN-9WzBmeQ30MBME4qlHyWz7CvtwaQV74uBVLbFLPoNhNisPnbhYMBCrzesM329IY3G3LHY7GD-NHIQ2qUEj5jBY0MfJdCQSR8yP_GdcRV944fAySndndY346-On7-7RqXxbGZGXu1S0Ip383Ch3yYvv8vOz8ItcnGaLHlIAr1tG0Ou-NpkbYUHlgL22S8BaQVhEi5OWv9cvjIKaNDIhem7k-Eww9fqI7toRMeIjrfmM0urJw71A" alt="Ice Pandan Latte" loading="lazy">
+            </div>
+            <div class="product-meta-top">
+              <span class="badge-tag badge-category">Non-Coffee</span>
+            </div>
+            <h3 class="product-name">Ice Pandan Latte</h3>
+            <p class="product-desc">Ekstrak daun pandan wangi alami berpadu lembutnya susu segar dingin yang manis harum.</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">Rp 10.000</span>
+            <button aria-label="Pilih Ice Pandan Latte" class="btn-add" onclick="addToCart('Ice Pandan Latte', 10000)">+ Pilih</button>
+          </div>
+        </article>
+
+        <!-- Produk Non-Coffee 2 -->
+        <article class="product-card" data-category="non-coffee">
+          <div>
+            <div class="product-thumb">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmjaoMYLsrhaizgmT2KV88XIZclS9jdgqmWcn0EpPdwYDz1JFwvM1wF99O7pedDaW3pNodfmSmFcJJJu0Bv0Hf5mGrBZrIfOsoXKsspIadL-N0Ez7unMy3qw1i7gPKISV5v-ravKDFhivtz7RzEDhT9FKXSCvCIY-jb7vLIT1cPA5HXIAOBWwhdhrxBoFq4f12o6CDSI1WBdqznqSVqwXj-HxDwZKhn_xbgrC2LEDHYlZyJyzOv2OGppaY18xhmwrbqg" alt="Ice Milo Shake" loading="lazy">
+            </div>
+            <div class="product-meta-top">
+              <span class="badge-tag badge-category">Non-Coffee</span>
+            </div>
+            <h3 class="product-name">Ice Milo Shake</h3>
+            <p class="product-desc">Minuman malt cokelat Milo pekat dikocok creamy dengan taburan choco dusting melimpah.</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">Rp 10.000</span>
+            <button aria-label="Pilih Ice Milo Shake" class="btn-add" onclick="addToCart('Ice Milo Shake', 10000)">+ Pilih</button>
+          </div>
+        </article>
+
+        <!-- Produk Non-Coffee 3 -->
+        <article class="product-card" data-category="non-coffee">
+          <div>
+            <div class="product-thumb">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1s95-LtQnpyPYKTJdJszf9LjL9geQZ1s6zX5Xps7LO18ZznAOjq-SJdYIl2ZRF-CWW7gfnCREXOK0J9woKyqXxyxy6xR19lyz83yjGZg8lqrTDXVTHWdrF-J6J0W8_NxB5BmsqC8kQ2TI8ScxN-oW2OBZS3a1reBmazt_8enFnL0bPwpUCUOdaLxAjfjroGY9KjcruIRcwDMSeaUHAlFn4aiwVQE7U8NUOOoVgAfKhJRlpdIp8_9yG1J6sF4Mu6bpIQ" alt="Ice Brown Regal" loading="lazy">
+            </div>
+            <div class="product-meta-top">
+              <span class="badge-tag badge-category">Non-Coffee</span>
+            </div>
+            <h3 class="product-name">Ice Brown Regal</h3>
+            <p class="product-desc">Susu karamel brown sugar legit dengan remukan biskuit Marie Regal renyah yang kaya tekstur.</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">Rp 10.000</span>
+            <button aria-label="Pilih Ice Brown Regal" class="btn-add" onclick="addToCart('Ice Brown Regal', 10000)">+ Pilih</button>
+          </div>
+        </article>
+
+        <!-- Produk Non-Coffee 4 -->
+        <article class="product-card" data-category="non-coffee">
+          <div>
+            <div class="product-thumb">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-arqZB1UamRHWnr65O-Z12Ffqj28P9v9W38g2X79mI09gLxOsoPnXMG4wVFHEtlDnzngYAXwqt_Pkr0YstTzh31KN6-sI982gwSCggM2fhz-9xS2m9MQnLWDmsDQ7_vV30qovOt78cOfK0659L6hrYKGCfMTcf5x-tCcEAPa7uRJPuDOBZm_pZQq7PjPtAg6Ghc9L4So6pm8KyyW87l2j_ZD6jQ0Uo0XQRY9GqV2qjIwwsvVnqBX1e3mRmoXpxWh9_Q" alt="Ice Thai Milk Tea" loading="lazy">
+            </div>
+            <div class="product-meta-top">
+              <span class="badge-tag badge-category">Non-Coffee</span>
+            </div>
+            <h3 class="product-name">Ice Thai Milk Tea</h3>
+            <p class="product-desc">Seduhan daun teh rempah khas Thailand berpadu susu kental manis legit yang autentik.</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">Rp 10.000</span>
+            <button aria-label="Pilih Ice Thai Milk Tea" class="btn-add" onclick="addToCart('Ice Thai Milk Tea', 10000)">+ Pilih</button>
+          </div>
+        </article>
+
+        <!-- Produk Non-Coffee 5 -->
+        <article class="product-card" data-category="non-coffee">
+          <div>
+            <div class="product-thumb">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8snJR5xhJ33At3SdZfEl3R8pj8g-0swaFwxT7AmXGYBmsufz3DD7ydXITV_gE9lLQzohtFWczS3wDHT6-vPIR4DxUl8WaBGMktUn5OcfyrAa_6kaqDqqrWOZ-C1sZS6KxtjpLmm-O0wN6CSZKmDcfQ_bEW8MJ1gWG_wM4k9b3NBG7Jp-OgtkF7dODPw6BiBR9cqdCU_YUAu8RGA7Po_74s8V6oKkaFff13CWsMqluxAS6gfhLEm_2E2W5vjULks6lDA" alt="Ice Matcha Latte" loading="lazy">
+            </div>
+            <div class="product-meta-top">
+              <span class="badge-tag badge-category">Non-Coffee</span>
+            </div>
+            <h3 class="product-name">Ice Matcha Latte</h3>
+            <p class="product-desc">Pure ceremonial Uji Kyoto matcha jepang diseduh lembut dengan susu segar creamy.</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">Rp 13.000</span>
+            <button aria-label="Pilih Ice Matcha Latte" class="btn-add" onclick="addToCart('Ice Matcha Latte', 13000)">+ Pilih</button>
+          </div>
+        </article>
+
+        <!-- Produk Non-Coffee 6 -->
+        <article class="product-card" data-category="non-coffee">
+          <div>
+            <div class="product-thumb">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP4mUVEQ0GX3bpyHDSWEsMDLNUHEo3vHme4Fp4jVeCNCGsBkYAuITTGa9HoK-SEU1MP9aTONDvDZezazVUjbDjXiQPG8Dv84jDUdqMOcKZToaEgcmqg0L4OgybwtyY1hAAfEoYfd9AGkoUJHFj2U9ZsPKTuvdaYYQJwU8aVF0IXJUzcyQVNRnKShS9-yS0g8vNx_ArG3WPkLS5V3NhXr5P2u6aDmWsIbLQ94JZrtjsL2TKkkmfBu1LpZvt_als7fztNw" alt="Ice Matcha Aren" loading="lazy">
+            </div>
+            <div class="product-meta-top">
+              <span class="badge-tag badge-category">Non-Coffee</span>
+            </div>
+            <h3 class="product-name">Ice Matcha Aren</h3>
+            <p class="product-desc">Kombinasi unik matcha Uji pekat dengan legit manis gula aren asli bumi pertiwi.</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">Rp 13.000</span>
+            <button aria-label="Pilih Ice Matcha Aren" class="btn-add" onclick="addToCart('Ice Matcha Aren', 13000)">+ Pilih</button>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-wrapper">
+      <div class="footer-top">
+        <div class="footer-brand-group">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZfnvPM9DEH76M1lpQmup1-hyheLau6ORiGJMQpf4iYSnYZf3rU9p8TTDeDiBpKEZgmeGUtNtaXgf_X3afsQD7brOoE1OTjRubYvuaSvUA_1Z2tZy03J-_u-d2LPFw1QAaw0fRJeyhanPC3FOVdtJ0Yke8ea5FZYtZDhOn9s1ghJVGgv68pe1I0Yd-LswBnWUE8arOYc-1s9q9RAHPediyIFNP2jaolm1DEiddKk_cBKSn9tB4aGhtmewlaHMt8ya6Cw" alt="Meera Coffee Logo" class="footer-logo">
+          <div>
+            <h3 class="footer-brand">Meera Coffee</h3>
+          </div>
+        </div>
+        <div class="footer-social">
+          <span>Ikuti Kami di Instagram</span>
+          <a href="https://www.instagram.com/meeracoffee24" target="_blank" rel="noopener noreferrer" class="btn-ig">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <span>@@meeracoffee24</span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-location" id="lokasi">
+        <div class="footer-location-info">
+          <span class="footer-location-label">Lokasi Kami</span>
+          <h3 class="footer-location-title">Kunjungi Meera Coffee</h3>
+          <address class="footer-location-address">Jl. Cipulir 1 No.2, RT.14/RW.4, Cipulir, Kec. Kebayoran Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12230</address>
+          <a href="https://maps.app.goo.gl/Cwu9JWVnGGVFaX8f7" target="_blank" rel="noopener noreferrer" class="btn-ig">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>Buka di Google Maps</span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Meera Coffee. All rights reserved.</span>
+        <span>Buka Setiap Hari 10:00 - 22:00 WIB</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Overlay Modal Keranjang -->
+  <div id="cart-overlay"></div>
+
+  <!-- Panel Keranjang (Drawer) -->
+  <aside aria-label="Panel Keranjang Pesanan" id="cart-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title-group">
+        <span class="icon">🛒</span>
+        <div>
+          <h2>Pesanan Saya</h2>
+          <p><span id="cart-item-count">0</span> menu dipilih</p>
+        </div>
+      </div>
+      <button aria-label="Tutup Keranjang" id="close-cart-btn">×</button>
+    </div>
+
+    <!-- Daftar Produk & Form -->
+    <div class="drawer-body">
+      <!-- Item List -->
+      <div id="cart-items-wrapper">
+        <p id="empty-cart-msg">Keranjang belanja Anda masih kosong.</p>
+      </div>
+
+      <!-- Data Pemesan -->
+      <div class="form-card">
+        <h4>👤 Data Pemesan</h4>
+        <div class="form-group">
+          <input id="order-customer-name" placeholder="Nama Pemesan (Wajib)" type="text" autocomplete="name">
+          <input id="order-table-note" placeholder="Catatan (Opsional)" type="text">
+        </div>
+      </div>
+
+      <!-- Pembayaran -->
+      <div class="form-card">
+        <h4>💳 Metode Pembayaran</h4>
+        <div class="payment-options">
+          <label class="payment-opt active">
+            <input checked name="payment-opt" type="radio">
+            <span>QRIS</span>
+          </label>
+          <label class="payment-opt">
+            <input name="payment-opt" type="radio">
+            <span>💵 Bayar Tunai di Kasir</span>
+          </label>
+          <label class="payment-opt">
+            <input name="payment-opt" type="radio">
+            <span>🏦 Transfer Virtual Account</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Ringkasan Biaya -->
+      <div class="form-card">
+        <h4>Ringkasan Biaya</h4>
+        <div class="summary-row total-row">
+          <span>Total Akhir</span>
+          <span id="calc-grandtotal">Rp 0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Footer / CTA -->
+    <div class="drawer-footer">
+      <button id="btn-confirm-order" onclick="confirmOrder()" type="button">Konfirmasi Pesanan Sekarang (Rp 0)</button>
+      <p>🔒 Pesanan akan langsung dikonfirmasi &amp; disiapkan oleh barista Meera Coffee</p>
+    </div>
+  </aside>
+
+  <!-- Bar Keranjang Melayang Bottom -->
+  <div id="floating-cart-bar">
+    <div class="floating-cart-info">
+      <div id="floating-badge">0</div>
+      <div>
+        <p id="floating-count-text">0 Pesanan</p>
+        <p id="floating-total-text">Total: Rp 0</p>
+      </div>
+    </div>
+    <button type="button" class="btn-view-cart">Lihat Pesanan</button>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="order-toast">
+    <span>✅</span> <span id="toast-text">Ditambahkan ke pesanan!</span>
+  </div>
+
+  <!-- Dialog Kustom (pengganti alert/confirm bawaan browser) -->
+  <div id="meera-dialog" class="meera-dialog" hidden>
+    <div class="meera-dialog__backdrop" data-dialog-close></div>
+    <div class="meera-dialog__box" role="alertdialog" aria-modal="true"
+         aria-labelledby="meera-dialog-title" aria-describedby="meera-dialog-message">
+      <div class="meera-dialog__icon" id="meera-dialog-icon" aria-hidden="true"></div>
+      <h3 class="meera-dialog__title" id="meera-dialog-title"></h3>
+      <p class="meera-dialog__message" id="meera-dialog-message"></p>
+      <dl class="meera-dialog__details" id="meera-dialog-details" hidden></dl>
+      <div class="meera-dialog__actions">
+        <button type="button" class="meera-dialog__btn meera-dialog__btn--ghost" id="meera-dialog-cancel" hidden>Batal</button>
+        <button type="button" class="meera-dialog__btn meera-dialog__btn--primary" id="meera-dialog-ok">Mengerti</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ asset('assets/script.js') }}"></script>
+</body>
+</html>
